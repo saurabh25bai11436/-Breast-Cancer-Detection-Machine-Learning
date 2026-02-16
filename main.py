@@ -6,10 +6,10 @@ from sklearn.datasets import load_breast_cancer
 import warnings
 warnings.filterwarnings('ignore')
 
-
+# Import models one by one
 from models.model_template import BaseModel
 
-
+# Load and prepare data
 def load_and_prepare_data():
     """Load breast cancer dataset and prepare for modeling"""
     data = load_breast_cancer()
@@ -31,3 +31,6 @@ def load_and_prepare_data():
 
 # Prepare data
 X_train, X_test, y_train, y_test, scaler = load_and_prepare_data()
+
+print(" Data loaded and prepared!")
+print(f"Training samples: {X_train.shape[0]}, Test samples: {X_test.shape[0]}")
