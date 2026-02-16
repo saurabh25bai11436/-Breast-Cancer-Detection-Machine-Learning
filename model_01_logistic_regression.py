@@ -16,3 +16,6 @@ data_frame.head()
 
 # adding the 'target' column to the data frame
 data_frame['label'] = breast_cancer_dataset.target
+
+# print last 5 rows of the dataframe
+data_frame.tail()
