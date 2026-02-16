@@ -10,3 +10,6 @@ from sklearn.metrics import accuracy_score
 breast_cancer_dataset = sklearn.datasets.load_breast_cancer()
 
 print(breast_cancer_dataset) 
+
+# print the first 5 rows of the dataframe
+data_frame.head()
