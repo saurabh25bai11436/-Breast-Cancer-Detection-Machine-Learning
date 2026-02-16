@@ -20,5 +20,5 @@ data_frame['label'] = breast_cancer_dataset.target
 # print last 5 rows of the dataframe
 data_frame.tail()
 
-# print last 5 rows of the dataframe
-data_frame.tail()
+# number of rows and columns in the dataset
+data_frame.shape
