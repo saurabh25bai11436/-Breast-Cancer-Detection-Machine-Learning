@@ -9,3 +9,4 @@ from sklearn.metrics import accuracy_score
 # loading the data from sklearn
 breast_cancer_dataset = sklearn.datasets.load_breast_cancer()
 
+print(breast_cancer_dataset) 
