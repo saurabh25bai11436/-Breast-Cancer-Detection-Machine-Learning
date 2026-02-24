@@ -12,3 +12,30 @@ import warnings
 warnings.filterwarnings('ignore')        # Suppress warning messages
 
 
+# Load the breast cancer dataset
+cancer = load_breast_cancer()           # Loads the Wisconsin Breast Cancer dataset
+
+# Create a DataFrame for better visualization
+df = pd.DataFrame(data=cancer.data, columns=cancer.feature_names)  # Convert features to DataFrame
+df['target'] = cancer.target             # Add target column (0 or 1)
+df['target_name'] = df['target'].map({0: 'malignant', 1: 'benign'})  # Add readable class names
+
+# Display basic information
+print("="*60)                            # Print separator line
+print("BREAST CANCER DATASET OVERVIEW")
+print("="*60)
+print("Dataset Shape:", df.shape)        # Shows (569, 32) - 569 samples, 32 columns
+print("\nFeatures (30 total):")          # There are 30 medical measurements
+print("-" * 30)
+for i, feature in enumerate(cancer.feature_names[:10]):  # Show first 10 features
+    print(f"{i+1:2d}. {feature}")
+print("   ... and 20 more features")
+
+print(f"\nTarget Classes: {cancer.target_names[0]} (0) and {cancer.target_names[1]} (1)")
+print("\nClass Distribution:")
+print(df['target_name'].value_counts())   # Count of malignant (0) and benign (1)
+print(f"\nPercentage Malignant: {(df['target']==0).mean()*100:.1f}%")
+print(f"Percentage Benign: {(df['target']==1).mean()*100:.1f}%")
+
+print("\nFirst 5 rows of the dataset:")
+print(df.head())                          # Display first 5 rows to see data structure
