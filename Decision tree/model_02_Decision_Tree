@@ -77,3 +77,58 @@ from sklearn.model_selection import cross_val_score
 cv_scores = cross_val_score(dt_model, X_train, y_train, cv=5)  # 5-fold cross-validation
 print(f"\nCross-validation scores: {cv_scores}")  # Accuracy for each fold
 print(f"Mean CV Score: {cv_scores.mean():.3f} (+/- {cv_scores.std()*2:.3f})")  # Average performance
+
+
+print("\n" + "="*60)
+print("MODEL EVALUATION")
+print("="*60)
+
+# Calculate accuracy
+train_accuracy = accuracy_score(y_train, y_pred_train)  # Accuracy on training data
+test_accuracy = accuracy_score(y_test, y_pred)          # Accuracy on test data
+
+print(f"Training Accuracy: {train_accuracy:.4f}")       # How well model learned training data
+print(f"Testing Accuracy: {test_accuracy:.4f}")         # How well model generalizes to new data
+print(f"Generalization Gap: {train_accuracy - test_accuracy:.4f}")  # Difference (overfitting indicator)
+
+# Detailed classification report
+print("\nClassification Report (Test Set):")
+print("-" * 50)
+print(classification_report(y_test, y_pred, target_names=cancer.target_names))
+# Shows precision, recall, f1-score for each class
+
+# Confusion Matrix
+cm = confusion_matrix(y_test, y_pred)  # Shows correct and incorrect predictions
+print("\nConfusion Matrix:")
+print("-" * 30)
+print(f"                Predicted")
+print(f"                Malignant  Benign")
+print(f"Actual Malignant:   {cm[0,0]:3d}       {cm[0,1]:3d}")  # True Negatives, False Positives
+print(f"       Benign:      {cm[1,0]:3d}       {cm[1,1]:3d}")  # False Negatives, True Positives
+
+
+
+plt.figure(figsize=(8, 6))                    # Create figure of size 8x6 inches
+sns.heatmap(cm, 
+            annot=True,                        # Show numbers in cells
+            fmt='d',                            # Format as integers
+            cmap='Blues',                        # Use blue color scheme
+            xticklabels=cancer.target_names,     # Label x-axis with class names
+            yticklabels=cancer.target_names)     # Label y-axis with class names
+plt.title('Confusion Matrix - Breast Cancer Prediction', fontsize=14)
+plt.ylabel('Actual', fontsize=12)
+plt.xlabel('Predicted', fontsize=12)
+plt.tight_layout()                               # Adjust layout to prevent clipping
+plt.show()                                        # Display the plot
+
+
+
+plt.figure(figsize=(20, 10))                     # Large figure for detailed tree
+plot_tree(dt_model, 
+          feature_names=cancer.feature_names,     # Label nodes with feature names
+          class_names=cancer.target_names,        # Label with class names
+          filled=True,                             # Color nodes by majority class
+          rounded=True,                            # Rounded corners for nodes
+          fontsize=8)                              # Text size
+plt.title('Decision Tree for Breast Cancer Prediction', fontsize=16)
+plt.show()
