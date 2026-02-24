@@ -1,1 +1,14 @@
+# Import necessary libraries
+import pandas as pd                    # For data manipulation and DataFrame creation
+import numpy as np                     # For numerical operations and arrays
+from sklearn.datasets import load_breast_cancer  # To load the breast cancer dataset
+from sklearn.model_selection import train_test_split  # To split data into train/test sets
+from sklearn.tree import DecisionTreeClassifier  # The decision tree algorithm
+from sklearn.tree import plot_tree      # To visualize the decision tree
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix  # Evaluation metrics
+import matplotlib.pyplot as plt         # For creating plots and visualizations
+import seaborn as sns                   # For enhanced visualizations (nicer looking plots)
+import warnings
+warnings.filterwarnings('ignore')        # Suppress warning messages
+
 
