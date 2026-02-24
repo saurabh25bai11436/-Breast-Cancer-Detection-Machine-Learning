@@ -39,3 +39,27 @@ print(f"Percentage Benign: {(df['target']==1).mean()*100:.1f}%")
 
 print("\nFirst 5 rows of the dataset:")
 print(df.head())                          # Display first 5 rows to see data structure
+
+
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+# Assuming you have your features (X) and target (y) ready
+# If not, you'll need to load them (e.g., X = df.drop('target', axis=1))
+
+# 1. DEFINE x_train and y_train (This is the missing piece!)
+x_train, x_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# 2. Create the Decision Tree model
+dt_model = DecisionTreeClassifier(
+    max_depth=4,
+    min_samples_split=5,
+    min_samples_leaf=2,
+    max_features='sqrt',
+    random_state=42,
+    class_weight='balanced'
+)
+
+# 3. Train the model
+dt_model.fit(x_train, y_train) 
+
+print("Model trained successfully!")
