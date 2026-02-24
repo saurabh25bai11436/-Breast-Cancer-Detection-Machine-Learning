@@ -132,3 +132,74 @@ plot_tree(dt_model,
           fontsize=8)                              # Text size
 plt.title('Decision Tree for Breast Cancer Prediction', fontsize=16)
 plt.show()
+
+
+
+def predict_cancer(features_dict):
+    """
+    Simple function to predict breast cancer for new samples
+    
+    Parameters:
+    features_dict: Dictionary with feature names and their values
+    
+    Returns:
+    Prediction and probability
+    """
+    # Create numpy array from input features in correct order
+    input_features = np.array([features_dict[feature] for feature in cancer.feature_names]).reshape(1, -1)
+    
+    # Make prediction
+    prediction = dt_model.predict(input_features)[0]           # 0 or 1
+    probability = dt_model.predict_proba(input_features)[0]    # Probability for each class
+    
+    # Return results in easy-to-understand format
+    result = {
+        'prediction': cancer.target_names[prediction],         # 'malignant' or 'benign'
+        'probability_malignant': probability[0],                # Probability of malignant
+        'probability_benign': probability[1]                    # Probability of benign
+    }
+    return result
+
+
+
+print("\n" + "="*60)
+print("EXAMPLE PREDICTION")
+print("="*60)
+
+# Take the first sample from test set as example
+sample_idx = 0
+sample_features = {}
+for i, feature in enumerate(cancer.feature_names):
+    sample_features[feature] = X_test[sample_idx][i]  # Create dictionary of feature values
+
+print("Sample Features (first 5 only for brevity):")
+for feature in list(sample_features.keys())[:5]:
+    print(f"{feature}: {sample_features[feature]:.2f}")
+
+# Get prediction for this sample
+result = predict_cancer(sample_features)
+print(f"\nActual Class: {cancer.target_names[y_test[sample_idx]]}")
+print(f"Predicted Class: {result['prediction']}")
+print(f"Probability (Malignant): {result['probability_malignant']:.3f}")
+print(f"Probability (Benign): {result['probability_benign']:.3f}")
+
+
+
+print("\n" + "="*60)
+print("MODEL INTERPRETATION")
+print("="*60)
+print("""
+Key Insights:
+1. The decision tree makes decisions by splitting data based on feature values
+2. Feature importance shows which measurements are most predictive
+3. The tree depth is limited to prevent overfitting
+4. Confusion matrix shows where the model makes mistakes
+5. The model achieves high accuracy on both training and test sets
+
+Interpretation Tips:
+- Green/yellow nodes in the tree visualization show the majority class
+- Darker colors indicate more samples in that node
+- The path from root to leaf shows the decision rules
+""")
+
+print("\nModel saved and ready for predictions!")
