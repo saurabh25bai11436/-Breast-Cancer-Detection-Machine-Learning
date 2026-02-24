@@ -69,3 +69,11 @@ print("Model trained successfully!")
 y_pred = dt_model.predict(X_test)           # Predict classes for test set
 y_pred_train = dt_model.predict(X_train)    # Predict classes for training set
 y_pred_proba = dt_model.predict_proba(X_test)[:, 1]  # Get probability scores for ROC curve
+
+
+# 1. Import the necessary function
+from sklearn.model_selection import cross_val_score
+# Cross-validation score
+cv_scores = cross_val_score(dt_model, X_train, y_train, cv=5)  # 5-fold cross-validation
+print(f"\nCross-validation scores: {cv_scores}")  # Accuracy for each fold
+print(f"Mean CV Score: {cv_scores.mean():.3f} (+/- {cv_scores.std()*2:.3f})")  # Average performance
