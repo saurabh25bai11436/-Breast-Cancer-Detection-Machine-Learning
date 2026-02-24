@@ -63,3 +63,9 @@ dt_model = DecisionTreeClassifier(
 dt_model.fit(x_train, y_train) 
 
 print("Model trained successfully!")
+
+
+# Make predictions on test data
+y_pred = dt_model.predict(X_test)           # Predict classes for test set
+y_pred_train = dt_model.predict(X_train)    # Predict classes for training set
+y_pred_proba = dt_model.predict_proba(X_test)[:, 1]  # Get probability scores for ROC curve
